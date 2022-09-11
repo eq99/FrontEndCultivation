@@ -72,22 +72,25 @@ XHTML与HTML4.0的标记基本上一样，但 XHTML 是更严格的、纯净的 
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>欢迎来到 HTML</title>
+    <title>Document</title>
 </head>
+
 <body>
     <h3>我爱前端，前端</h3>
     <a href="https://www.bilibili.com" target="__blank">
-        <img src="https://upload.wikimedia.org/wikipedia/zh/thumb/b/bd/Bilibili_Logo_Blue.svg/440px-Bilibili_Logo_Blue.svg.png" alt="">
         走，跟我去B站搞学习
     </a>
 </body>
+
 </html>
 ```
 
-标签写完之后，我们用 chrome 浏览器打开上面这个`index.html`文件，看看页面效果：
+标签写完之后，我们用 chrome 浏览器打开上面这个`hello-world.html`文件，看看页面效果：
 
 ![image](https://user-images.githubusercontent.com/27769596/189525556-c66c2d6e-a011-4b7d-be10-ad75eeb79d2a.png)
 

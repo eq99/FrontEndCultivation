@@ -3,7 +3,8 @@
 
 # 参考资料
 
-前辈面试总结：https://github.com/ZhChen7/Technical-interview
-The Modern JavaScript Tutorial：https://javascript.info/
+- 前辈面试总结：https://github.com/ZhChen7/Technical-interview
 
-前端知识总结：https://github.com/qianguyihao/Web
+- The Modern JavaScript Tutorial：https://javascript.info/
+
+- 前端知识总结：https://github.com/qianguyihao/Web

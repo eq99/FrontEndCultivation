@@ -14,6 +14,7 @@ func main() {
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
+	
 	app.Get("/", GetHome)
 	app.Get("/signup", GetSignup)
 	app.Post("/signup", PostSignup)
@@ -34,11 +35,13 @@ func GetSignup(c *fiber.Ctx) error {
 }
 
 func PostSignup(c *fiber.Ctx) error {
+	name := c.FormValue("name")
 	password := c.FormValue("password")
 
 	return c.Render("profile", fiber.Map{
 		"Title":    "我的主页",
 		"Password": password,
+		"Name":     name,
 	})
 
 }

@@ -29,6 +29,17 @@ HTML 不是一种通用的编程语言（例如 C/C++，Java，Python），它�
 
 **HTML5**的诞生，标记着互联网时代的深度发展，比如所**HTML5**里面诞生的**音频、视频、图像、动画**等都做了新的标准，它对于浏览器的兼容也是得到了一定的处理，由此可见，**HTML**的整个历史发展目前为止我们所使用的版本主要是99年诞生的**HTML 4.01**以及2014年诞生的 **HTML5**。
 
+💯【面试题】HTML5 新特性有哪些？
+
+- 语义化更好的内容标签（header,nav,footer,aside,article,section）
+- 表单增强：更多的表单类型，例如：color、email、url、search
+- 音频、视频 API (audio,video)
+- 画布(Canvas) API
+- 地理(Geolocation) API
+- 拖拽释放(Drag and drop) API
+- 本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失；
+- 新的技术 webworker, websocket, Geolocation
+
 ## HTML的专有名词
 
 - 网页 ：由各种标记组成的一个页面就叫网页。
@@ -92,19 +103,6 @@ HTML 不是一种通用的编程语言（例如 C/C++，Java，Python），它�
 - HTML 标记语言的含义
 - HTML 简短历史
 - VSCode写代码，live server
-
-## 常见面试题
-
-HTML5 新特性有哪些？
-
-- 语义化更好的内容标签（header,nav,footer,aside,article,section）
-- 表单增强：更多的表单类型，例如：color、email、url、search
-- 音频、视频 API (audio,video)
-- 画布(Canvas) API
-- 地理(Geolocation) API
-- 拖拽释放(Drag and drop) API
-- 本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失；
-- 新的技术 webworker, websocket, Geolocation
 
 # 参考文章
 

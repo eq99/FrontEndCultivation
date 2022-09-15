@@ -23,7 +23,7 @@
 
 ### 其他值到布尔类型的值的转换规则
 
-如下八种情况转 boolean 得到 false: `0, -0, NaN, undefined, null, '', false, document.all()`
+如下八种情况转 boolean 得到 false: `0, +0, -0, NaN, undefined, null, '', false`
 
 假值的布尔强制类型转换结果为 false。从逻辑上说，假值列表以外的都应该是真值。
 

@@ -20,7 +20,8 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="./hello-world.js"></script>
+    <script src="./jquery.js" ></script>
+    <script src="./my-app.js" ></script>
 </body>
 </html>
 ```
@@ -102,5 +103,5 @@ alert("hello");
 1. `<link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/laputa-css/map.css">`：引入样式表。
 2. `<link rel="dns-prefetch" href="//s1.hdslb.com">`: DNS Prefetch 是一种 DNS 预解析技术。当你浏览网页时，浏览器会在加载网页时对网页中的域名进行解析缓存，这样在你单击当前网页中的连接时就无需进行 DNS 的解析，减少用户等待时间，提高用户体验。
 3. `<link rel="shortcut icon" href="https://www.bilibili.com/favicon.ico?v=1">`: 引入图标。
-4. `<link rel="apple-touch-icon" href="//static.hdslb.com/mobile/img/512.png">`：现今移动设备越来越多，苹果为iOS设备配备了apple-touch-icon私有属性，添加该属性，在iPhone,iPad,iTouch的safari浏览器上可以使用添加到主屏按钮将网站添加到主屏幕上，方便用户以后访问。
+4. `<link rel="apple-touch-icon" href="//static.hdslb.com/mobile/img/512.png">`：现今移动设备越来越多，苹果为iOS设备配备了apple-touch-icon私有属性，添加该属性，在 iPhone,iPad,iTouch的safari浏览器上可以使用添加到主屏按钮将网站添加到主屏幕上，方便用户以后访问。
 5. `<link rel="canonical" href="https://www.bilibili.com/">`：规范化网址，提高网站搜索引擎排名。

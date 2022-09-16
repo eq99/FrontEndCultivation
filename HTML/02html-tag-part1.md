@@ -102,7 +102,7 @@
 
 ```html
 <figure>
-  <img src="https://imgs.lolimi.cn/?img=https://t2cy.com/d/file/phone/list/pic/2021-07-19/6913fa858c0dc48f9f7160ffb9430af5.jpg" alt="Trulli" style="width:100%">
+  <img src="https://imgs.lolimi.cn/?img=https://t2cy.com/d/file/phone/list/pic/2021-07-19/6913fa858c0dc48f9f7160ffb9430af5.jpg" alt="Trulli" style="width:100%" >
   <figcaption>Fig.1 碧蓝航线可畏礼服cos梳妆中的大小姐。</figcaption>
 </figure>
 ```

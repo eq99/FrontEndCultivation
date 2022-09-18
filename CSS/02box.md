@@ -4,7 +4,7 @@
 
 CSS3中的盒模型有以下两种：标准盒子模型、怪异盒子模型（IE盒子模型）。
 
-![盒子模型](box-size.jpg)  
+![盒子模型](img/box-size.jpg)  
 
 盒模型都是由四个部分组成的，分别是 margin、border、padding 和 content。
 

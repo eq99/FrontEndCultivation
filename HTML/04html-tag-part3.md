@@ -42,8 +42,6 @@
 
 更多类型请参考：https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
 
-
-
 `input` 元素除了之前见到过的 `type, id, name` 属性外，还有
 
 -  `value` ：输入框的值

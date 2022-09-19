@@ -326,7 +326,7 @@ align-content: start | end | center | stretch | space-around | space-between | s
 | `float`    | 除了 `none`，可以是：`left, rigth`                  |
 | `position` | `absolute, fixed`                                   |
 | `overflow` | 除了`visible, clip` ，可以是：`auto, sroll, hidden` |
-| `display`  | 很多，例如：`inline-block,table-cell, flow-root`    |
+| `display`  | 很多，例如：`inline-block, table-cell, flow-root`   |
 | `contain`  | `layout, content, paint`                            |
 
  `display:flex;`或` display:inline-flex` 的直接孩子也是BFC，除了他们自己也是 `flex, grid, table`。

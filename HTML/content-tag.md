@@ -151,6 +151,31 @@ HTML布局图：
 
 
 
+## video
+
+```
+<video width="658" height="444" poster="http://www.youname.com/images/first.png" autoplay="autoplay" preload="none" controls="controls">
+  <source src="http://www.youname.com/images/first.ogv" />
+  <source src="http://www.youname.com/images/first.ogg" />
+</video>
+```
+
+这段代码在页面中定义了一个视频，此视频的预览图为poster的属性值，显示浏览器的默认媒体控制栏，预加载视频的元数据，循环播放，宽度为900像素，高度为240像素。
+
+第一选择视频地址为第一个source标签的src属性值，视频类别为Ogg视频，视频编码译码器为Theora，音频编码译码器为Vorbis，播放媒 介为显示器；后面的依次类推。
+
+## audio
+
+```html
+<audio controls>
+  <source src="/static/i/html/horse.ogg" type="audio/ogg">
+  <source src="/static/i/html/horse.mp3" type="audio/mpeg">
+  您的浏览器不支持 audio 元素
+</audio>
+```
+
+
+
 # 参考文章
 
 - [「2021」高频前端面试题汇总之HTML篇](https://juejin.cn/post/6905294475539513352)

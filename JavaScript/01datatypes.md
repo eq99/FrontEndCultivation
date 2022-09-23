@@ -1,6 +1,10 @@
 # JavaScript 数据类型
 
-JavaScript共有八种数据类型，分别是 Undefined、Null、Boolean、Number、String、Object、Symbol、BigInt。
+JavaScript共有八种数据类型，分别是：
+
+**基础数据类型** ([Primitive values](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#primitive_values) )： Undefined、Null、Boolean、Number、String、Symbol、BigInt。
+
+数据对象([Objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#objects) ): Objects。
 
 其中 Number 类型为 IEEE 754 64 位浮点类型。使用 53 位表示小数位，10 位表示指数位，1 位表示符号位。
 
@@ -11,7 +15,7 @@ JavaScript共有八种数据类型，分别是 Undefined、Null、Boolean、Numb
 
 💡 这些数据可以分为原始数据类型和引用数据类型：
 
-- 栈：原始数据类型（Undefined、Null、Boolean、Number、String）
+- 栈：原始数据类型（Undefined、Null、Boolean、Number、String、Symbol，BigInt）
 - 堆：引用数据类型（对象、数组和函数）
 
 两种类型的区别在于**存储位置的不同：**

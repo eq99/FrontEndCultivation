@@ -1,5 +1,25 @@
 
 
+## `a` 标签详解
+
+`a` 标签的作用是超链接引用，最重要的属性是 `href`:
+
+```html
+<a href="https://bilibili.com">网址直接跳转</a> 
+<a href="images/1.webp">相对路径跳转</a>
+<a href="hello.exe">如果是打不开的文件，则下载之</a>
+<a href="">空链接是刷新</a>
+<a href="#">#是回到顶部</a>
+<a href="javascript:;">禁止链接跳转</a>
+```
+
+`a` 标签还有一个属性：`target`:
+
+```html
+<a href="https://bilibili.com" tatget="_blank">新标签打开网页</a> 
+<a href="https://bilibili.com" tatget="_self">当前标签打开网页</a> 
+```
+
 ### `table` 标签
 
 表格相关的标签，[示例](https://www.w3schools.com/tags/tag_tbody.asp)：

@@ -401,6 +401,7 @@ float 属性可以指定一个元素应沿其容器的左侧或右侧放置，�
   background: blue;
   float: left;
 }
+
 .div2 {
   height: 20px;
   width: 300px;

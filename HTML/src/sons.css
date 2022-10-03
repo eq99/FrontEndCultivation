@@ -1,0 +1,52 @@
+body {
+    background-color: #e1e0c7;
+    font-size: 12px;
+}
+
+.sons {
+    background-color: #F0EFE2;
+    width: 670px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.title {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.sons a {
+    text-decoration: none;
+    font-size: 10px;
+    color: #65645f;
+}
+
+.sons a:hover {
+    text-decoration: underline;
+}
+
+.translate {
+    color: #af9100;
+    margin-top: 8px;
+}
+
+.raw {
+    margin-bottom: 8px;
+}
+
+.ref {
+    font-size: 10px;
+    color: #919090;
+}
+
+.ref p {
+    margin-bottom: 5px;
+}
+
+.ref ol {
+    padding: 0;
+    margin-top: 5px;
+    list-style: decimal inside;
+}

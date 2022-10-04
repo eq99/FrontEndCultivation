@@ -1,3 +1,5 @@
+# 正则表达式详解
+
 ## 正则表达式对象
 
 JavaScript 正则表达式对象采用双斜线来声明，例如：
@@ -238,7 +240,7 @@ console.log(matches);
 // ['A', 'B', 'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e']
 ```
 
-本节参考文章：6, 7
+> 注：本节参考文章：6, 7
 
 ### `String.prototype.replace()`
 
@@ -314,7 +316,7 @@ const newString = 'abc12345#$*%'.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
 console.log(newString);  // abc - 12345 - #$*%
 ```
 
-参考文章：8
+> 注：本节参考文章：8
 
 ## 参考文章 
 
@@ -327,8 +329,12 @@ console.log(newString);  // abc - 12345 - #$*%
 7. 风雨后见彩虹. [JS正则表达式详解 ](https://www.cnblogs.com/moqiutao/p/6513628.html). 博客园.
 8. [String.prototype.replace()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#specifying_a_function_as_the_replacement). MDN.
 
-> ♥ 文章整理自网络，若有疏漏请在评论区指正。创作不易，转载请注明出处。
->
-> ♥ 宣传做的好，产品差不了，宣传做的棒，产品No.1。我是前端小星森，让用户看到最伟大的产品。
->
-> ♥ 招聘广告：今年找工作好难，本人会一点点前端，如果贵公司需要前端工程师，可发邮件：2414711236@qq.com，请注明主题：招聘前端工程师。
+
+
+★ 文章整理自网络，若有疏漏请在评论区指正。
+
+★ 本文开源，转载只需注明出处：小星森. [JavaScript 正则表达式详解](https://zhuanlan.zhihu.com/p/570372405). 知乎.
+
+★ 商业合作请发私信或邮件：zuiaiqiansen@163.com，并注明主题：商业合作。
+
+★ 宣传做的好，产品差不了，宣传做的棒，产品No.1。我是前端小星森，让用户看到最伟大的产品。本人会一点点前端，如果贵公司有一流的产品或服务需要前端工程师展示，或需要一个前端工程师实现您的创业梦想，请发邮件：zuiaiqiansen@163.com，并注明主题：招聘前端工程师。

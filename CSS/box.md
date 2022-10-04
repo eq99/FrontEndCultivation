@@ -1,6 +1,6 @@
-## CSS 盒子模型
+# CSS 盒子模型详解
 
-### 盒子模型概念
+## 盒子模型概念
 
 CSS3 中的盒模型主要有以下两种：标准盒子模型、怪异盒子模型（IE盒子模型）。
 
@@ -20,7 +20,7 @@ box-sizing: border-box;  /*标准盒子模块*/
 box-sizing: content-box; /*怪异*/
 ```
 
-### 设置盒子类型
+## 设置盒子类型
 
 ```css
 box-sizeing: margin-box;
@@ -29,7 +29,7 @@ box-sizeing: padding-box;
 box-sizing: content-box; /*怪异*/
 ```
 
-### 高与宽
+## 高与宽
 
 `width`  语法格式：
 
@@ -61,7 +61,7 @@ width: unset;
 
 `height` 有类似的属性。
 
-### 内外边距
+## 内外边距
 
 内边距：`padding`，外边距：`margin`:
 
@@ -86,7 +86,7 @@ margin: 2px 1em 0 auto;
 margin-left: 1rem;
 ```
 
-**负 `margin`**：会使盒子向相应的方向收缩，例如：
+【**注意**】`margin` 可以设置为负值：
 
 1. 当元素的`margin-top`或者`margin-left`为负数时，“当前元素”会被拉向指定方向。
 2. 当元素的`margin-bottom`或者`margin-right`为负数时，“后续元素”会被拉向指定方向。
@@ -94,16 +94,41 @@ margin-left: 1rem;
 `padding` 与 `margin` 一样，但是`padding` 没有负值。
 
 【**注意**】`margin-top` 有一个经典的外边距泄露BUG：
+```html
+<div class="parent">
+  <div class="child"></div>
+</div>
+```
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="margin-top BUG" src="https://codepen.io/xiayulu/embed/abGKyxy?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/xiayulu/pen/abGKyxy">
-  margin-top BUG</a> by xiayulu (<a href="https://codepen.io/xiayulu">@xiayulu</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-我们发现子元素的 `margin-top` 传递到了父元素，解决方案是设置 `overflow:hidden;` 使得父元素成为BFC。
+.parent {
+  background-color: violet;
+  width: 200px;
+  height: 200px;
 
-### 边框属性
+  /*   overflow: hidden; */
+}
+
+.child {
+  background-color: olive;
+  width: 100px;
+  height: 100px;
+
+  margin-top: 50px;
+}
+```
+
+![margin-top-bug](img/margin-top-bug.png)
+
+上述例子表明：子元素的 `margin-top` 传递到了父元素，解决方案是设置 `overflow:hidden;` 使得父元素成为BFC，[在线案例](https://codepen.io/xiayulu/pen/abGKyxy)。
+
+## 边框属性
 
 边框 `border` 分为上下左右四个边框。每个边框可以设置线条样式，粗细，颜色。
 
@@ -127,7 +152,7 @@ border: medium dashed green;
 border-left: 2px solid grey;
 ```
 
-### 圆角属性
+## 圆角属性
 
 黑子还能设置圆角属性 `border-radius`：
 
@@ -166,7 +191,7 @@ border-radius: revert-layer;
 border-radius: unset;
 ```
 
-### 阴影属性
+## 阴影属性
 
 盒子阴影设置案例：
 
@@ -190,7 +215,7 @@ box-shadow: inset 5em 1em gold;
 box-shadow: 3px 3px red, -1em 0 0.4em olive;
 ```
 
-### 轮廓属性
+## 轮廓属性
 
 轮廓 `outline`  的设置方式与 `border` 类似：
 
@@ -213,7 +238,7 @@ outline-offset: 0.5rem;
 
 `outline` 没有上下左右之分，不占用空间，但可设置与边框的距离。
 
-### 位置属性
+## 位置属性
 
 盒子在网页中的位置模式由 `position` 属性设置：
 
@@ -279,6 +304,16 @@ left: 20px;
 </html>
 ```
 ## 参考文章
-- CUGGZ. [高频前端面试题汇总之CSS篇](https://juejin.cn/post/6905539198107942919). 稀土掘金.
-- [Box model in CSS](https://cssreference.io/box-model/)
+1. CUGGZ. [高频前端面试题汇总之CSS篇](https://juejin.cn/post/6905539198107942919). 稀土掘金.
+2. [Box model in CSS](https://cssreference.io/box-model/)
+
+
+
+★ 文章整理自网络，若有疏漏请在评论区指正。
+
+★ 本文开源，转载只需注明出处：小星森. [CSS 盒子模型详解](https://zhuanlan.zhihu.com/p/570489396). 知乎.
+
+★ 商业合作请发私信或邮件：zuiaiqiansen@163.com，并注明主题：商业合作。
+
+★ 宣传做的好，产品差不了，宣传做的棒，产品No.1。我是前端小星森，让用户看到最伟大的产品。本人会一点点前端，如果贵公司有一流的产品或服务需要前端工程师展示，或需要一个前端工程师实现您的创业梦想，请发邮件：zuiaiqiansen@163.com，并注明主题：招聘前端工程师。
 

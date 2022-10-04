@@ -1,8 +1,8 @@
-# CSS 盒子模型
+## CSS 盒子模型
 
-## 盒子模型概念
+### 盒子模型概念
 
-CSS3中的盒模型有以下两种：标准盒子模型、怪异盒子模型（IE盒子模型）。
+CSS3 中的盒模型主要有以下两种：标准盒子模型、怪异盒子模型（IE盒子模型）。
 
 ![盒子模型](img/box-size.jpg)  
 
@@ -20,7 +20,7 @@ box-sizing: border-box;  /*标准盒子模块*/
 box-sizing: content-box; /*怪异*/
 ```
 
-## 设置盒子类型
+### 设置盒子类型
 
 ```css
 box-sizeing: margin-box;
@@ -29,7 +29,7 @@ box-sizeing: padding-box;
 box-sizing: content-box; /*怪异*/
 ```
 
-## 高与宽
+### 高与宽
 
 `width`  语法格式：
 
@@ -61,7 +61,7 @@ width: unset;
 
 `height` 有类似的属性。
 
-## 内外边距
+### 内外边距
 
 内边距：`padding`，外边距：`margin`:
 
@@ -86,14 +86,24 @@ margin: 2px 1em 0 auto;
 margin-left: 1rem;
 ```
 
-**负`margin`**：会往嵌入到那个方向，例如：
+**负 `margin`**：会使盒子向相应的方向收缩，例如：
 
 1. 当元素的`margin-top`或者`margin-left`为负数时，“当前元素”会被拉向指定方向。
 2. 当元素的`margin-bottom`或者`margin-right`为负数时，“后续元素”会被拉向指定方向。
 
 `padding` 与 `margin` 一样，但是`padding` 没有负值。
 
-## 边框属性
+【**注意**】`margin-top` 有一个经典的外边距泄露BUG：
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="margin-top BUG" src="https://codepen.io/xiayulu/embed/abGKyxy?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/xiayulu/pen/abGKyxy">
+  margin-top BUG</a> by xiayulu (<a href="https://codepen.io/xiayulu">@xiayulu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+我们发现子元素的 `margin-top` 传递到了父元素，解决方案是设置 `overflow:hidden;` 使得父元素成为BFC。
+
+### 边框属性
 
 边框 `border` 分为上下左右四个边框。每个边框可以设置线条样式，粗细，颜色。
 
@@ -117,7 +127,7 @@ border: medium dashed green;
 border-left: 2px solid grey;
 ```
 
-## 圆角属性
+### 圆角属性
 
 黑子还能设置圆角属性 `border-radius`：
 
@@ -156,7 +166,7 @@ border-radius: revert-layer;
 border-radius: unset;
 ```
 
-## 盒子的阴影
+### 阴影属性
 
 盒子阴影设置案例：
 
@@ -180,7 +190,7 @@ box-shadow: inset 5em 1em gold;
 box-shadow: 3px 3px red, -1em 0 0.4em olive;
 ```
 
-## 轮廓
+### 轮廓属性
 
 轮廓 `outline`  的设置方式与 `border` 类似：
 
@@ -203,7 +213,7 @@ outline-offset: 0.5rem;
 
 `outline` 没有上下左右之分，不占用空间，但可设置与边框的距离。
 
-## 盒子的位置
+### 位置属性
 
 盒子在网页中的位置模式由 `position` 属性设置：
 
@@ -268,8 +278,7 @@ left: 20px;
 </body>
 </html>
 ```
-# 参考文章
+## 参考文章
 - CUGGZ. [高频前端面试题汇总之CSS篇](https://juejin.cn/post/6905539198107942919). 稀土掘金.
 - [Box model in CSS](https://cssreference.io/box-model/)
-
 

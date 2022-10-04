@@ -1,8 +1,8 @@
-# CSS 文字排版
+## CSS 文字排版
 
 CSS 与文字排版的样式非常多。
 
-## 颜色
+### 颜色
 
 ```html
     <p style="color:transparent;">Hello World</p>
@@ -14,7 +14,7 @@ CSS 与文字排版的样式非常多。
     <p style="color:hsla(14, 100%, 53%, 0.6);">Hello World</p>
 ```
 
-## 字体族
+### 字体族
 
 字体族即一类字体， 其值主要有6种：
 
@@ -46,7 +46,7 @@ body, html {
 }
 ```
 
-## 字体大小
+### 字体大小
 
  设置字体大小的 css 属性是：`font-size`
 
@@ -59,19 +59,19 @@ font-size: 1.2rem;  /* 相对于 html*/
 font-size: [xx-small,x-small,small,medium,large,x-large,x-large,xx-large];
 ```
 
-## 斜体
+### 斜体
 
 ```css
 font-style: [normal,italic,oblique];
 ```
 
-## 变形
+### 变形
 
 ```css
 font-variant: [normal,small-caps];
 ```
 
-## 字体粗细
+### 字体粗细
 
 ```css
 font-weight: normal;
@@ -88,26 +88,26 @@ font-weight: 600;
 - **800** Extra Bold
 - **900** Ultra Bold
 
-## 字母间距, 单词间距
+### 字母间距, 单词间距
 
 ```css
 letter-spacing: [normal, 2px, 0.1em];
 word-spacing: 2em;
 ```
 
-## 行高
+### 行高
 
 ```css
 line-height: normal; // 取值方式类似
 ```
 
-## 文字对齐
+### 文字对齐
 
 ```css
 text-align: [left, right, center, justify];
 ```
 
-## 文字下划线
+### 文字下划线
 
 ```css
 text-decoration: [none,underline,line-through,overline];
@@ -116,13 +116,13 @@ text-decoration: underline dotted red;/* 设置线条样式与颜色 */
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration)
 
-## 首行缩进
+### 首行缩进
 
 ```css
 text-indent: [0, 40px, -2em];
 ```
 
-## 文字阴影
+### 文字阴影
 
 ```css
 text-shadow: 2px 4px 10px red;
@@ -130,7 +130,7 @@ text-shadow: 2px 4px 10px red;
 
 分别代表：向右偏移量，向下偏移量，模糊半径，颜色。
 
-## 文字大小写
+### 文字大小写
 
 ```css
 text-transform: none;
@@ -139,7 +139,7 @@ text-transform: uppercase;
 text-transform: lowercase;
 ```
 
-## 文字换行
+### 文字换行
 
 ```css
 white-space : nowrap;
@@ -153,7 +153,7 @@ white-space : nowrap;
 | pre-wrap | CSS 2.1新增保留空白符序列，但是正常地进行换行。              |
 | pre-line | CSS 2.1新增合并空白符序列，但是保留换行符。                  |
 
-## 文字溢出
+### 文字溢出
 
 ```css
 text-overflow: clip;
@@ -161,7 +161,7 @@ text-overflow: ellipsis;
 overflow: hidden;
 ```
 
-# 参考文章
+## 参考文章
 
 - [Typography in CSS](https://cssreference.io/typography)
 

@@ -136,6 +136,16 @@ if (a == 1 && a == 2 && a == 3) {
 }
 ```
 
+
+
+## 三目运算符
+
+```js
+let y = false;
+let x = y === true ? 'haha' : 'hoho';
+console.log(x);
+```
+
 # 参考文章
 
 - [JS比较运算符的匹配规则以及if()条件的判断结果](https://blog.csdn.net/cc18868876837/article/details/88867982)

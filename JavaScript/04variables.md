@@ -55,6 +55,32 @@ function func() {
 func(); // undefined
 ```
 
+【练习】请问如下代码会打印什么？
+
+```js
+var a = 2;
+function fn() {
+  b();
+  return;
+  var a = 1;
+  function b() {
+    console.log(a);
+  }
+}
+fn();
+```
+
+【练习】请问如下代码会输出什么？
+
+```js
+var b = 3;
+(function () {
+  b = 5;
+  var b = 2;
+})();
+console.log(b);
+```
+
 ## 3. 重复声明
 
 另外，使用 `var` 重复声明同一个变量也可以：

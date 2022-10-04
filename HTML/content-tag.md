@@ -194,9 +194,19 @@ HTML布局图：
 </audio>
 ```
 
+## track[^2]
 
+`<track>` 标签为媒体元素（比如 `<audio>` and `<video>`）规定外部文本轨道，也就是字幕，字幕格式采用 WebVTT 格式（.vtt 格式文件）。这个元素用于规定字幕文件或其他包含文本的文件，当媒体播放时，这些文件是可见的。使用示例：
+
+```html
+<video controls src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/friday.mp4">
+  <track default kind="captions" srclang="en" src="https://interactive-examples.mdn.mozilla.net/media/examples/friday.vtt">
+</video>
+```
 
 # 参考文章
 
-- [「2021」高频前端面试题汇总之HTML篇](https://juejin.cn/post/6905294475539513352)
+1. [「2021」高频前端面试题汇总之HTML篇](https://juejin.cn/post/6905294475539513352)
+
+[^2]:[The Embed Text Track element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track). MDN.
 

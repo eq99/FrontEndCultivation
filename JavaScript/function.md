@@ -25,6 +25,33 @@ typeof g();
 
 如果是typeof g(),结果是ReferenceError，g is not defined
 
+
+
+函数的的声明存在变量提升，但是匿名函数必须先声明后使用
+
+【例】正确
+
+```js
+fun();
+function fun() {
+  console.log(1);
+}
+```
+
+【例】错误
+
+```js
+fn();
+
+var fn = function () {
+  console.log(1);
+}
+```
+
+
+
+
+
 ## `bind, call, apply`
 
 call 和 apply 都是为了改变某个函数运行时的上下文（context）而存在的，换句话说，就是为了改变函数体内部 this 的指向。对于 apply、call 二者而言，作用完全一样，只是接受参数的方式不太一样。

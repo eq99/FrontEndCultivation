@@ -81,6 +81,19 @@ var b = 3;
 console.log(b);
 ```
 
+【练习】请问如下代码会输出什么？
+
+```js
+if (!("a" in window)) {
+  var a = 1;
+  console.log("???");
+}
+
+console.log(a);
+```
+
+
+
 ## 3. 重复声明
 
 另外，使用 `var` 重复声明同一个变量也可以：

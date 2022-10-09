@@ -569,6 +569,14 @@ undefined + {}
 //"undefined[object Object]"
 ```
 
+【例题】请问如下程序的打印结果是什么？
+
+```js
+let result = 100 + true + 21.2 + null + undefined + "Tencent" + [] + null + 9 + false
+
+console.log(result)
+```
+
 ###  `- * /` 运算符
 
 转换成数值型。

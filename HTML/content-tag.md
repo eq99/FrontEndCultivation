@@ -52,8 +52,6 @@
 </table>
 ```
 
-
-
 ### `img` 图片
 
 图片元素，[示例](https://www.w3schools.com/tags/tag_figure.asp)：
@@ -94,6 +92,110 @@ sizes="[media query] [length], [media query] [length] ... "
 ```
 
 sizes就是指默认显示128px, 如果视区宽度大于360px, 则显示340px。
+
+【对比】图片与背景图片使用场景？
+
+背景图片写在 css 里面，一般用在静态场景，例如装饰。
+
+如果图片需要经常变动，则使用 `img`。
+
+###  列表标签
+
+列表标签分为有序标签（ol）和无序（ul），内部的条目放在 `li` (list item)标签中，如下图所示：
+
+```html
+<ol>
+  <li>第一项</li>
+  <li>第二项</li>
+  <li>第三项</li>
+</ol>
+
+<ul>
+  <li>第一项</li>
+  <li>第二项</li>
+  <li>第三项</li>
+</ul>
+```
+
+他们的区别是：ol 的条目之前有数字，而 ul 的条目之前是小圆点。
+
+除此之外还有自定义列表 `dl`:
+
+```html
+<dl>
+  <dt>列表头</dt>
+  <dd>列表项</dd>
+  <dd>列表项</dd>
+  <dd>列表项</dd>
+  <dd>列表项</dd>
+</dl>
+```
+
+【属性】列表相关的属性有：
+
+- 使用 `type` 指定序号类型：
+
+```html
+<ol type="i">
+  <li>Introduction</li>
+  <li>List of Grievances</li>
+  <li>Conclusion</li>
+</ol>
+
+<!-- 
+a: 小写字母序
+A: 大写字母序
+i: 小写罗马字母
+I: 大写罗马字母
+-->
+```
+
+
+
+- 可以用 `start` 属性设置开始序号，使用 `reversed` 开启倒排序 ：
+
+```html
+<ol start="5" reversed>
+  <li>Toast pita, leave to cool, then slice down the edge.</li>
+  <li>
+    Fry the halloumi in a shallow, non-stick pan, until browned on both sides.
+  </li>
+  <li>Wash and chop the salad.</li>
+  <li>Fill pita with salad, hummus, and fried halloumi.</li>
+</ol>
+```
+
+- 使用 `value` 个列表项标号：
+
+```html
+<ol>
+  <li value="2">Toast pita, leave to cool, then slice down the edge.</li>
+  <li value="4">
+    Fry the halloumi in a shallow, non-stick pan, until browned on both sides.
+  </li>
+  <li value="6">Wash and chop the salad.</li>
+  <li value="8">Fill pita with salad, hummus, and fried halloumi.</li>
+</ol>
+```
+
+
+
+列表相关的样式属性：
+
+```css
+ol, ul {
+  list-style-type: square|disc|circle|decimal; /*可以用来控制列表项开始样式*/
+  list-style-image: url(example.png); /*在列表项开头使用用图片*/
+  list-style-position: inside|outside ; /* 里面或外面 */
+}
+
+/*简写形式*/
+ul {
+  list-style: square url(example.png) inside;
+}
+```
+
+
 
 ### `details` 标签
 

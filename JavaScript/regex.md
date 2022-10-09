@@ -333,7 +333,7 @@ console.log(newString);  // abc - 12345 - #$*%
 
 > ★ 文章整理自网络，若有疏漏请在评论区指正。
 >
-> ★ 本文开源（[Github链接](https://github.com/xiayulu/frontend-all-in-one)）欢迎参与贡献，转载只需注明出处：小星森. [JavaScript 正则表达式详解](https://zhuanlan.zhihu.com/p/570372405). 知乎.
+> ★ 本文开源（[Github链接](https://github.com/xiayulu/frontend-all-in-one)）欢迎参与贡献，转载需注明出处：小星森. [JavaScript 正则表达式详解](https://zhuanlan.zhihu.com/p/570372405). 知乎.
 > 
 > ★ 商业合作请发私信或邮件：zuiaiqiansen@163.com，并注明主题：商业合作。
 > 

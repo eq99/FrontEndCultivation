@@ -107,6 +107,8 @@ line-height: normal; // 取值方式类似
 text-align: [left, right, center, justify];
 ```
 
+居中要分清出对象。能使行内元素居中。常见问题：居中没有效果，说明内容与容器一样大。
+
 ### 文字下划线
 
 ```css

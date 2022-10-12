@@ -608,6 +608,8 @@ console.log(typeof null);            // object
 
 其中数组、对象、null 都会被判断为 object，其他判断都正确。
 
+【技巧】`typeof` 操作符的返回值有："undefined",  "boolean", "number", "bigint", "string",  "symbol", "object", "function" 共八种，注意都是小写字符串，没有 `null, array, int, float` 之类的东西。
+
 ### instanceof
 
 `instanceof`可以正确判断对象的类型，**其内部运行机制是判断在其原型链中能否找到该类型的原型**。

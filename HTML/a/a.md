@@ -177,6 +177,7 @@ a:active {
 ## 参考文章
 
 [^1]:前端路上的小兵. [详解HTML的a标签（超链接标签） ](https://www.cnblogs.com/shcrk/p/9279960.html). 博客园.
+
 [^2]:杜俊成. [a 标签的伪类的正确顺序，以及原因](https://www.cnblogs.com/dujuncheng/p/8a44d12f5dec0def9518321af4e71c22.html). 博客园. 
 
 
@@ -184,6 +185,8 @@ a:active {
 > ♥ 非常感谢大家的点赞与关注。文章整理自网络，若有疏漏请在评论区指正。
 >
 > ★ 本文开源（[Github链接](https://github.com/xiayulu/frontend-all-in-one)）欢迎参与贡献，转载需注明出处：小星森. [HTML a 标签详解](https://zhuanlan.zhihu.com/p/573177374). 知乎.
+>
+> ★ 封面图片来自：https://www.pexels.com/.
 >
 > ★ 商业合作请发私信或邮件：zuiaiqiansen@163.com，并注明主题：商业合作。
 >

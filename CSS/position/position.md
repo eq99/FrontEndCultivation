@@ -441,3 +441,12 @@ CSS 定位用于设置元素的位置。我们知道文档的元素的默认位�
 
 [^1]:MDN. [position](https://developer.mozilla.org/en-US/docs/Web/CSS/position).
 
+> ♥ 我是：你的甜心森，非常感谢大家的点赞与关注。
+>
+> ★ 本文开源（[Github链接](https://github.com/xiayulu/frontend-all-in-one)）欢迎参与贡献，转载需注明出处：小星森. [JavaScript 变量声明详解](https://zhuanlan.zhihu.com/p/572278327). 知乎.
+>
+> ★ 封面图片选自 [Pixabay](https://pixabay.com/zh//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=6559677) By [Wolfgang_Hasselmann](https://pixabay.com/zh/users/wolfgang_hasselmann-12114733/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=6559677). 
+>
+> ★ 商业合作请发私信或邮件：zuiaiqiansen@163.com，并注明主题：商业合作。
+>
+> ★ 宣传做的好，产品差不了，宣传做的棒，产品No.1。前端小星森，让用户看到最伟大的产品。本人会一点点前端，如果贵公司有一流的产品或服务需要前端工程师展示，或需要一个前端工程师实现您的创业梦想，请发邮件：zuiaiqiansen@163.com，并注明主题：招聘前端工程师。

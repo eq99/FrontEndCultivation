@@ -1,3 +1,7 @@
+# huge file
+
+**/**.mp4
+
 # Logs
 logs
 *.log

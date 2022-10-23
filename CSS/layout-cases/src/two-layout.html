@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      body {
+        margin: 0;
+      }
+
+      .home-side {
+        /* 实现固定侧边栏 
+         * 必须同时设置 top 和 bottom
+        */
+        position: fixed;
+        top: 0;
+        bottom: 0;
+
+        /* 设置侧边栏宽度 */
+        width: 200px;
+
+        /* 设置内容溢出滚动效果 */
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        resize: horizontal;
+      }
+
+      .side-content {
+        width: 100%;
+        height: 120vh;
+        background-color: #e9dfe5;
+      }
+
+      .home-main {
+        /* 使用左外边距留出侧边栏宽度 */
+        margin-left: 200px;
+
+        background-color: #f5b1aa;
+        height: 200vh;
+      }
+    </style>
+    <div class="home">
+      <aside class="home-side">
+        <div class="side-content">哈哈哈航昂哈哈航昂昂昂哈行昂昂昂昂啊哈哈哈</div>
+      </aside>
+      <main class="home-main">Main</main>
+    </div>
+  </body>
+</html>

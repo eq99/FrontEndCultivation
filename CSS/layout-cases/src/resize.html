@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      body {
+        margin: 0;
+      }
+      :root {
+        --sidebar-width: 200px;
+      }
+
+      .home-side {
+        /* 实现固定侧边栏 
+         * 必须同时设置 top 和 bottom
+        */
+        position: fixed;
+        top: 0;
+        bottom: 0;
+
+        box-sizing: border-box;
+        /* 设置侧边栏宽度 */
+        width: var(--sidebar-width);
+      }
+
+      .side-resizer {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+
+        cursor: ew-resize;
+        background-color: transparent;
+        width: 5px;
+      }
+
+      .side-resizer:hover,
+      .side-resizer:active {
+        border-right: 1px dashed #43676b;
+      }
+
+      .side-scroll-box {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow-y: auto;
+
+        /* 火狐浏览器滚动条样式 */
+        scrollbar-color: #bfbfbf rgb(239, 239, 239);
+        scrollbar-width: thin;
+      }
+
+      /*滚动条样式*/
+      .side-scroll-box::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      .side-scroll-box::-webkit-scrollbar-track {
+        background: rgb(239, 239, 239);
+        border-radius: 2px;
+      }
+
+      .side-scroll-box::-webkit-scrollbar-thumb {
+        background: #bfbfbf;
+        border-radius: 10px;
+      }
+
+      /* 拖动的时候禁用选择 */
+      .sidebar-resizing {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .side-content {
+        height: 120vh;
+        background-color: #e9dfe5;
+      }
+
+      .home-main {
+        /* 使用左外边距留出侧边栏宽度 */
+        margin-left: var(--sidebar-width);
+
+        background-color: #f5b1aa;
+        height: 200vh;
+      }
+    </style>
+    <div class="home">
+      <aside class="home-side" id="sidebar">
+        <div class="side-scroll-box">
+          <div class="side-content"></div>
+        </div>
+        <div class="side-resizer" id="sidebar-resizer"></div>
+      </aside>
+      <main class="home-main"></main>
+    </div>
+
+    <script>
+      const html = document.querySelector("html");
+      const sidebarResizer = document.getElementById("sidebar-resizer");
+      const sidebar = document.getElementById("sidebar");
+      sidebarResizer.addEventListener("mousedown", initResize, false);
+
+      function initResize(e) {
+        window.addEventListener("mousemove", resize, false);
+        window.addEventListener("mouseup", stopResize, false);
+        html.classList.add("sidebar-resizing");
+      }
+
+      function resize(e) {
+        var pos = e.clientX - sidebar.offsetLeft;
+        pos = Math.min(pos, window.innerWidth - 100);
+        document.documentElement.style.setProperty("--sidebar-width", pos + "px");
+      }
+
+      //on mouseup remove windows functions mousemove & mouseup
+      function stopResize(e) {
+        html.classList.remove("sidebar-resizing");
+        window.removeEventListener("mousemove", resize, false);
+        window.removeEventListener("mouseup", stopResize, false);
+      }
+    </script>
+  </body>
+</html>

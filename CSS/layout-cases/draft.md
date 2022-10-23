@@ -16,7 +16,7 @@
 
 【案例1】[知乎](https://www.zhihu.com/)首部导航。
 
-![zhihu-header](img/zhihu-header.png)
+![zhihu-header](../img/zhihu-header.png)
 
 知乎的首部导航栏是典型的行布局，Logo，导航链接，搜索框，提问按钮等元素处在同一行。实现行布局最简单的是弹性盒子(FlexBox)。
 

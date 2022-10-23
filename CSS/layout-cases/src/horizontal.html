@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      .box {
+        height: 150px;
+        background-color: #fdeff2;
+
+        position: relative;
+      }
+
+      .content {
+        /* width: 150px; */
+        height: 100px;
+        background-color: #f6bfbc;
+
+        /* 定位实现水平居中
+        1. left=right
+        2. 剩余空间的宽度大于零
+        3. 内容宽度已知
+        */
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+    </style>
+
+    <div class="box">
+      <div class="content"></div>
+    </div>
+
+    <style>
+      ul {
+        text-align: center;
+
+        /* 其他样式 */
+        line-height: 40px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        background-color: #fdeff2;
+      }
+
+      ul li {
+        display: inline-block;
+
+        /* 其他样式 */
+        background-color: #f6bfbc;
+        padding: 8px 16px;
+      }
+    </style>
+    <!-- <ul>
+      <li>首页</li>
+      <li>关于</li>
+      <li>产品</li>
+    </ul> -->
+  </body>
+</html>

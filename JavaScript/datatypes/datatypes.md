@@ -1,27 +1,42 @@
-# JavaScript 数据类型详解
+# 一文弄懂 JavaScript 基础数据类型
 
-> 同学，你为什么要学前端？
->
-> --- 因为前端简单。
+开始之前，先做几个小测验：
+
+- 当前 JavaScript 一共有多少种类型？
+
+- `console.log(1&&2&&3)` 的输出是什么?
+
+- ` console.log(typeof 1) ` 输出什么？
+
+- ` console.log(typeof null) ` 输出什么？
+- 列举 `typeof xxx ` 的所有可能取值？
+
+欢迎在评论区写下你的答案。
+
+
+
+正文开始:
 
 JavaScript 共有八种数据类型，可以分为两大类，一类是**基本数据类型**([Primitive values](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#primitive_values) )，另一类是**对象数据类型**([Objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#objects) )。
 
-基础数据类型有如下七种： Boolean, Number, String, Undefined, Null, BigInt, Symbol。
+基础数据类型有如下七种：Boolean, Number, String, Undefined, Null, BigInt, Symbol。
 
-基本数据类型又称原子类型，它们不能再拆分为更细粒度的数据类型。而对象数据类型就是其他语言的类或者结构体，由基础数据类型成员组成。本章重点讲解七种基本数据类型，对象数据类型会单开一个章节重点讲述。
+基本数据类型又称原子类型，它们不能再拆分为更细粒度的数据类型。而对象数据类型类似其他语言的类或者结构体，由基础数据类型成员组成。本章重点讲解七种基本数据类型，对象数据类型会单开一个章节重点讲述。
 
 ## Boolean
 
-首先介绍最简单的数据类型：布尔型，布尔类型是计算机语言的基础，因为计算机数据由 `0, 1` 组成，`0, 1` 正好代表了布尔类型的两个值：`true, false`。许多经典的计算机语言会把 1 当成 true，会把 0 当成 false，但一些现代的编程语言严格区分类型，不能隐式的把数值类型转换为布尔类型，Go 和 Rust 是典型的代表，这样的语言写代码的时候会让觉得安心。不幸的是，JavaScript 没有严格的类型约束，存在各式各样的类型转换规则，本章专门开了一节讲解 JavaScript 中的类型转换。
+首先介绍最简单的数据类型：布尔型，布尔类型是计算机语言的基础，因为计算机数据由 `0, 1` 组成，`0, 1` 正好代表了布尔类型的两个值：`true, false`。许多经典的计算机语言会把 1 当成 true，会把 0 当成 false，但一些现代的编程语言严格区分类型，不能隐式的把数值类型转换为布尔类型，Go 和 Rust 是典型的代表，这样的语言写代码的时候会让觉得安心。不幸的是，JavaScript 没有严格的类型约束，存在各式各样的类型转换规则，后面的章节讲解了 JavaScript 中的类型转换。
 
 JavaScript 使用 `typeof` 运算符取得变量的类型：
 
 ```js
-console.log(typeof true)
-console.log(typeof false)
+console.log(typeof true)  //boolean
+console.log(typeof false) //boolean
 ```
 
-如下八种情况转布尔类型得到` false` : `0, +0, -0, NaN, undefined, null, '', false`，其他的都为 `true`
+### 布尔类型转换
+
+ 如下八种情况转布尔类型得到` false` : `0, +0, -0, NaN, undefined, null, '', false`，其他的都为 `true`
 
 ### 布尔表达式的运算
 
@@ -51,20 +66,34 @@ let exp = user.exp || 100;
 console.log(exp) // 100
 ```
 
+JavaScript **取反运算 `!`** 可能存在类型转换，对非布尔类型的变量取反会先把它转换成布尔类型，然后再取反：
+
+```js
+console.log(!1); // false
+console.log(!""); // true
+```
+
+【🔑技巧】使用两次取反可以把一个变量转换成相应的布尔类型：
+
+```js
+let a = !!1;    //a===true
+let b = !!{};   //b===true
+```
+
 ## Number[^1]
 
-不像其他语言例如 C++ 有 char，short，int，long 诸多整数类型，JavaScript 没有整数类型，只有 Number 类型，并且 Number 为 IEEE 754 64 位浮点类型，使用 52 位表示小数位M，11 位表示指数位E，1 位表示符号位S。
+其他编程语言例如 C++ 有 char，short，int，long 等诸多整数类型，JavaScript 没有整数类型，只有 Number 类型，并且 Number 为 IEEE 754 64 位浮点类型，使用 52 位表示小数位M，11 位表示指数位E，1 位表示符号位S。
 
-![double](img/double.png)
+![double](./double.png)
 
 因此，$x=-1\times S\times (1+M)\times2^{E}$
 
-小数的计算方法：每一位的权重是$2^{-i}, i=1,\dots,52$，**注意要加1**。
+小数的计算方法：每一位的权重是 $2^{-i}, i=1,\dots,52$，**注意要加1**。
 
-指数的计算方法：因为指数位是11 位能表示无符号的数值范围是0~2047，为了表示负指数，需要减去一个偏移量因，IEEE 754标准规定该固定值为 $2^{e-1}-1=1023$ ($e$ 代表指数位数)，此表示的指数范围是：**-1022~1023**，全0与全1有特殊含义[^2]：
+指数的计算方法：因为指数位是 11 位能表示无符号的数值范围是 0~2047，为了表示负指数，需要减去一个偏移量因，IEEE 754 标准规定该固定值为 $2^{e-1}-1=1023$ ($e$ 代表指数位数)，此表示的指数范围是：**-1022~1023**，全0与全1有特殊含义[^2]：
 
 1. 如果指数是0并且尾数的小数部分是0，这个数 $\pm 0$（和符号位相关）
-2. 如果指数 =$2^{e}-1$ 并且尾数的小数部分是0，这个数是 $\pm \infty$（同样和符号位相关）
+2. 如果指数 = $2^{e}-1$ 并且尾数的小数部分是0，这个数是 $\pm \infty$（同样和符号位相关）
 3. 如果指数 = $2^{e}-1$ 并且尾数的小数部分非0，这个数表示为非数 NaN (Not a Number)。
 
 |    形式    |      指数      |    小数部分    |
@@ -73,7 +102,7 @@ console.log(exp) // 100
 | 非规约形式 |       0        |   大于0小于1   |
 |  规约形式  | 1 到 $2^{e}-2$ | 大于等于1小于2 |
 |    无穷    |   $2^{e}-1$    |       0        |
-|    NaN     |   $2^{e}-2$    |      非0       |
+|    NaN     |   $2^{e}-1$    |      非 0      |
 
 【**提示**】如果想了解浮点数的运算规则，请阅读参考文章3[^3]，文章写得非常棒，每一个细节都讲到了。
 
@@ -117,9 +146,11 @@ Number() 返回一个数值类型。当使用 `new` 操作符时，返回一个�
 3==new Number('3');//true
 typeof new Number('3');//"object"
 
-// 脱了裤子放屁
+// 脱了裤子放屁——多余：
 3 === Number(3);//true
 ```
+
+【⚠️注意】new 出来的是整数对象是对象，不是 Number 基本类型，注意区分。
 
 ### 常用的特殊值
 
@@ -153,7 +184,7 @@ console.log(1 === 1.0, 0.1 + 0.1 === 0.2, 0.1 + 0.2 === 0.3);
 
 - [Number.isNaN()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN)，用来判断是不是数值型的 NaN。
 
-`NaN` 或 `Number.NaN` 有一个性质：只要它出现在 `==` 与`===` 中，就会返回 false，所以不能用它等号来判断是不是 NaN：
+`NaN` 或 `Number.NaN` 有一个性质：只要它出现在 `==` 与`===` 中，就会返回 false，所以不能用等号来判断是不是 NaN，应该使用专门的函数 `Number.isNan()`：
 
 ```js
 Number.NaN==Number.NaN;//false
@@ -196,9 +227,9 @@ isNaN(" "); // false, this is coerced to 0
 
 - [Number.parseFloat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/parseFloat)
 
-把字符串转化为数值，使用方法：`Number.parseFloat(string)` 或全局形式：`parseFloat(string)` 他们是一样哒。
+把字符串转化为数值，使用方法：`Number.parseFloat(string)` 或全局形式：`parseFloat(string)` （他们是一样哒）：
 
-参数 string 的开始的空格会被忽略。
+参数为 string ，并且开始的空格会被忽略。
 
 返回一个 Number 或 NaN
 
@@ -302,7 +333,7 @@ let e = 'b';
 console.log(c < d, d < e, c > b);//true true true
 ```
 
-【**注意**】不要直接用字符形式的数字比较大小，结果可能和你想的不一样。
+【⚠️**注意**】不要直接用字符形式的数字比较大小，结果可能和你想的不一样。
 
 ## Symbol
 
@@ -356,7 +387,7 @@ console.log(user.id, user["id"], user.id1, user[id1], user[id2]);
 //1 1 undefined 42 undefined
 ```
 
-- Symbol 作为属性声明要加 `[]`，使用也只能用`[]`，不能用`.` 操作符
+- Symbol 作为属性声明要加 `[]`，使用也只能用`[]`，不能用 `.` 操作符
 - 即使同名的两个`id`，它们也不是同一个属性。
 
 既然同名的 Symbol 没有任何关联，如果A 同学声明了一个 Symbol，B 同学就很难使用了。Symbol 还提供一个方法 `Symbol.for("id")`，允许在全局注册表中同名的符号，如果不存在改名字的符号，就创建一个，如果存在，就直接返回：
@@ -452,31 +483,27 @@ console.log(keys); //["name","id",Symbol(id)]
 `undefinded` 是全局对象的一个属性，也就是一个全局变量，该变量在现代的浏览器不能写，也不能配置。不要这么干：
 
 ```js
-//  DON'T DO THIS
-
-//  logs "foo string"
 (() => {
   const undefined = 'foo';
-  console.log(undefined, typeof undefined);
+  console.log(undefined, typeof undefined); //foo string
 })();
 
-//  logs "foo string"
 ((undefined) => {
   console.log(undefined, typeof undefined);
-})('foo');
+})('foo');//foo string
 ```
 
-检测 undefinded 的方法:
+undefinded 表示未定义，检测某个变量或属性是 undefinded 的方法:
 
 - 使用 `typeof`
 
 ```js
-//  x has not been declared before
-if (typeof x === 'undefined') { //  evaluates to true without errors
+//  x 没有定义过
+if (typeof x === 'undefined') {
   //  these statements execute
 }
 
-if (x === undefined) { //  throws a ReferenceError
+if (x === undefined) { // 因为x未定义，所以会抛出异常：throws a ReferenceError
 
 }
 ```
@@ -503,8 +530,6 @@ if (y === void 0) {
 }
 ```
 
-【**注意**】弱相等比较 `undefinded==null` 无条件返回 true，不存在隐式转换。
-
 ## 类型转换
 
 ### 转换为字符串
@@ -527,7 +552,7 @@ if (y === void 0) {
 - Null 类型： 0。
 - Boolean 类型：true 转换为 1，false 转换为 0。
 - String 类型：使用 Number() 函数进行转换，如果包含非数字值则转换为 NaN，空字符串为 0。
-- Symbol 类型：直接报错。
+- Symbol 类型：不可以转换，直接报错。
 - Object 类型：
 
 1. 调用object的valueOf()方法，如果得到的是Primitive值，则将该 Primitive 值转换成number后返回。
@@ -577,7 +602,7 @@ let result = 100 + true + 21.2 + null + undefined + "Tencent" + [] + null + 9 + 
 console.log(result)
 ```
 
-###  `- * /` 运算符
+###  其他算术运算符
 
 转换成数值型。
 
@@ -585,11 +610,9 @@ console.log(result)
 
 转换成布尔型。
 
-小技巧：`!!a`，会直接将非布尔值转换为布尔类型的值。
+### 比较运算符 ==、>、<等
 
-### 比较运算符==、>、<等
-
-另起一章。
+其中有着非常复杂的规则，见条件判断。
 
 ## 类型检测的方式[^6]
 
@@ -608,11 +631,11 @@ console.log(typeof null);            // object
 
 其中数组、对象、null 都会被判断为 object，其他判断都正确。
 
-【技巧】`typeof` 操作符的返回值有："undefined",  "boolean", "number", "bigint", "string",  "symbol", "object", "function" 共八种，注意都是小写字符串，没有 `null, array, int, float` 之类的东西。
+【🔑技巧】`typeof` 操作符的返回值有："undefined",  "boolean", "number", "bigint", "string",  "symbol", "object", "function" 共八种，注意都是小写字符串，没有 `null, array, int, float` 之类的东西。
 
 ### instanceof
 
-`instanceof`可以正确判断对象的类型，**其内部运行机制是判断在其原型链中能否找到该类型的原型**。
+`instanceof` 可以正确判断对象的类型，**其内部运行机制是判断在其原型链中能否找到该类型的原型**。
 
 ```javascript
 console.log(2 instanceof Number);                    // false
@@ -724,8 +747,6 @@ function myInstanceof(left, right) {
 }
 ```
 
-> 同学，同学，你别走啊，你走了谁陪我写前端啊~啊~啊~
-
 ## 参考文章
 
 [^1]:[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number). MDN.
@@ -742,10 +763,9 @@ function myInstanceof(left, right) {
 
 
 
-> ★ 文章整理自网络，若有疏漏请在评论区指正。
+> ♥ 我是前端工程师：你的甜心森。非常感谢大家的点赞与关注，欢迎大家参与讨论或协作。
 >
-> ★ 本文开源（[Github链接](https://github.com/xiayulu/frontend-all-in-one)）欢迎参与贡献，转载只需注明出处：小星森. [JavaScript 正则表达式详解](https://zhuanlan.zhihu.com/p/570372405). 知乎.
+> ★ 本文[开源](https://github.com/xiayulu/FrontEndCultivation)，采用 [CC BY-SA 4.0 协议](http://creativecommons.org/licenses/by-sa/4.0/)，转载请注明出处：[前端工程师的自我修养](https://github.com/xiayulu/FrontEndCultivation). GitHub.com@xiayulu.
 >
-> ★ 商业合作请发私信或邮件：zuiaiqiansen@163.com，并注明主题：商业合作。
->
-> ★ 宣传做的好，产品差不了，宣传做的棒，产品No.1。我是前端小星森，让用户看到最伟大的产品。本人会一点点前端，如果贵公司有一流的产品或服务需要前端工程师展示，或需要一个前端工程师实现您的创业梦想，请发邮件：zuiaiqiansen@163.com，并注明主题：招聘前端工程师。
+> ★ 创作合作或招聘信息请发私信或邮件：zuiaiqiansen@163.com，注明主题：创作合作或**招聘前端工程师**。
+

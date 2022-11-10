@@ -1,23 +1,21 @@
 # 前端工程师的自我修养
-备战 2023 秋招，加油！！！
 
-## 目录
+从零开始系统学习前端。
 
-【HTML】
+## HTML
 
 - [网页的今生前世](HTML/01html-basic.md)
 
-【CSS】
+## CSS
 
 - [样式表基础](css/basic.md)
-
 - [文字排版](css/Typography.md)
 - [盒子模型知多少](css/box.md)
 - [必须会的布局知识](css/layout.md)
 - [经典布局案例](css/layout-cases.md)
 - [CSS过度动画详解](css/transition.md)
 
-【JavaScript】
+## JavaScript
 
 - [JavaScript数据类型详解](JavaScript/datatypes.md)
 - [真假难辨之类型转换](JavaScript/02type-cast.md)

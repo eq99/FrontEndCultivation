@@ -1,10 +1,17 @@
-# CSS 基础知识
+# CSS 基础：那些可能被你忽视的细节
 
-本章主要讲解 CSS 的一些基础知识，理解这些基础知识能让我们写出更好的CSS。
+本章主要梳理了 CSS 的一些基础知识。开始之前先做个小测验：
+
+- CSS 有哪些引入方式？
+- `:root #myApp input:required` 权重是多少？
+- a 元素能继承父元素颜色吗，宽度呢？
+- 你知道 CSS 变量吗？
+
+先在评论区写下你的答案，看看你能答出几个。
 
 ## 样式的引入
 
-CSS 有三种引入方法：分别是行内样式，内部样式表，外部样式表
+CSS 有三种引入方法：分别是行内样式，内部样式表，外部样式表。
 
 ### 行内样式
 
@@ -176,6 +183,30 @@ id 选择器的语法格式是 `#id-name`，一般来说 id 在一个网页中�
 <h1 hello>我是加菲猫</h1>
 ```
 
+更强大的选择器[^3]：
+
+```css
+/* href 中含有 "example" */
+a[href*="example"] {
+  font-size: 2em;
+}
+
+/* href 以 ".org" 结尾 */
+a[href$=".org"] {
+  font-style: italic;
+}
+
+/* 样式表包含 "logo" */
+a[class~="logo"] {
+  padding: 2px;
+}
+
+/* href 包含 "insensitive" 忽略大小写，与正则开关类似 */
+a[href*="insensitive" i] {
+  color: cyan;
+}
+```
+
 ### 后代选择器
 
 除了单独的选择某个元素，还可以通过元素的之间的嵌套关系选择，最常用的是后代选择器：
@@ -221,7 +252,6 @@ id 选择器的语法格式是 `#id-name`，一般来说 id 在一个网页中�
   <div class="north">
     <div class="plant">玉米</div>
   </div>
-
 </div>
 
 <div class="autumn">
@@ -263,88 +293,57 @@ id 选择器的语法格式是 `#id-name`，一般来说 id 在一个网页中�
 
 以上小节总结了一些常用的选择器，CSS 选择器实在是太多了，更多的选择器可以阅读参考文章[^1]。
 
+【练习】如何选择除了第一个的所有子节点？
+
+```css
+ul li:not(:first-child){...}
+```
+
 ## CSS选择器优先级
 
-CSS （Cascading Style Sheets）叠层样式表，某一个元素可能同时设置了很多样式，甚至有些样式是冲突的，到底用哪个样式呢？这时候浏览器就需要根据优先级来设置样式了。打开浏览器调试工具，在 Styles 一栏会显示元素的样式，并且优先级高的样式会显示在上面，优先级较低的样式会显示在下面，并且后面有很多相同的样式样式属性被划掉了，这是因为高优先级的样式覆盖了低优先级样式的缘故。
+CSS（Cascading Style Sheets）叠层样式表，某一个元素可能同时被多个样式规则选中，例如通配符 *, 标签名，类，浏览器该用哪个样式呢？这时候就需要根据优先级来设置样式了。打开浏览器调试工具，在 Styles 一栏会显示元素的样式，并且优先级高的样式会显示在上面，优先级较低的样式会显示在下面，并且后面有很多相同的样式样式属性被划掉了，这是因为高优先级的样式覆盖了低优先级样式的缘故：
 
 ![image-20221013223318715](image-20221013223318715.png)
 
-样式选择器优先级归纳：
+【知识点】样式权重分为三个等级：ID，Class，Type[^2]，因此施加在某个元素上的样式权重分别为：1-1-1。
 
-| **选择器**       | **格式**                | **优先级权重** |
-| ---------------- | ----------------------- | -------------- |
-| id选择器         | `#id`                   | 100            |
-| 类选择器         | `.classname`            | 10             |
-| 属性选择器       | `div[attr=value]`       | 10             |
-| 伪类选择器       | `li:last-child`         | 10             |
-| 标签选择器       | `element`               | 1              |
-| 伪元素选择器     | `li::after`             | 1              |
-| 相邻兄弟选择器   | `h1+p`                  | 0              |
-| 相邻兄弟们选择器 | `h1~p`                  | 0              |
-| 子选择器         | `ul>li`                 | 0              |
-| 后代选择器       | `li a`                  | 0              |
-| 通配符选择器     | `*`                     | 0              |
-| 自带的样式       | 浏览器自带              | 1              |
-| 行内样式         | `style="color: red;"`   | 1000           |
-| `!important`     | `color: red;!important` | 1000           |
-| 继承             | 继承                    | 0              |
+【例】`ul#nav li.active a` 的权重是：`1-1-3`，其中有一个 ID 选择器 `#nav`，一个 Class 选择器 `.active` ，三个 Tyep 选择器：`ul, li, a`。
 
-选择器的特殊性由选择器本身的组成确定，特殊性值表述为4个部分，如0,0,0,0
-一个选择器的具体特殊性如下确定：
-		内联声明的特殊性，加1,0,0,0
-		对于选择器中给定的ID属性值，加0,1,0,0
-		对于选择器中给定的各个类属性，属性选择，或伪类，加0,0,1,0
-		对于选择器中的给定的各个元素和伪元素，加0,0,0,1
-		通配符选择器的特殊性为0,0,0,0
-		结合符(,)对选择器的特殊性没有一点贡献
-		继承没有特殊性
-	
-	例：div[id="test"] (0,0,1,1) 和 #test(0,1,0,0)
-	特殊性不进位，1,0,0,0大于所有以0开头的特殊性(比如0,1111,0,0)
-	如果多个规则与同一个元素匹配，而有些声明互相冲突时，特殊性越大的越占优势
------------------------------------
-©著作权归作者所有：来自51CTO博客作者叹之的原创作品，请联系作者获取转载授权，否则将追究法律责任
-CSS优先级判定规则
-https://blog.51cto.com/u_15295346/3022331
+【知识点】样式权重计算规则，从高到低比较优先级。
 
+【例】`1-3-2` 大于 `1-3-1`，先比较 ID：`1==1`，再比较 Class：`3==3`，再比较 Type: `2>1`。
 
+每个等级的选择器都有哪些呢？
 
+- **ID 级**。只有一个：`#id`，权重：`1-0-0`
+- **Class 级**。1）类`.class`，2）属性：`[attr], [attr=value], [lang|="zh"]`，3）伪类：`:hover, :nth-of-type(3n), :required `，权重：`0-1-0`
+- **Type 级**。1）标签名：`div, p , a`，2）伪元素：`::before, ::placeholder`，权重：`0-0-1`
 
+【例外情况】
 
-对于选择器的**优先级**：
+- 通配符 `*` 和伪类`:where()` 及其参数不贡献任何权重，即`0-0-0`
+- 组合子  [`+`](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator), [`>`](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator), [`~`](https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_combinator), ["  "](https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator), 和 [`||`](https://developer.mozilla.org/en-US/docs/Web/CSS/Column_combinator) 本身不贡献权重。
+- 伪类 [`:not()`, `:is()` 和 `:has()`](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity#the-is-not-and-has-exceptions)本身不贡献权重，但它们的参数计算权重。
+- 继承的样式权重为零。
 
-- 内联样式：1000
+【练习】计算如下规则的权重：
 
-**注意事项：**
+```css
+[type="password"]             /* 0-1-0 */
+input:focus                   /* ? */
+:root #myApp input:required   /* ? */
+h2:has(~ h2)                  /* ? */
+```
 
-- `!important` 声明的样式的优先级最高；
-- 如果优先级相同，则最后出现的样式生效；
-- 继承得到的样式的优先级最低；
-- 通用选择器（*）、子选择器（>）和相邻同胞选择器（+）并不在这四个等级中，所以它们的权值都为 0 ；
-- 样式表的来源不同时，优先级顺序为：内联样式 > 内部样式 > 外部样式 > 浏览器用户自定义样式 > 浏览器默认样式。
+【行内样式】
 
-### CSS 样式继承性
+行内样式没有选择器，可以把它的权重看做：`1-0-0-0` ，或者说它比任何样式表的优先级都要高。唯一能覆盖行内样式表的方式是使用 `!important`。
 
-**一、无继承性的属性**
+## CSS 样式继承性
 
-1) **display**：规定元素应该生成的框的类型
-2) **文本属性**：
+子元素的某些属性值可以从父元素继承而来，利用此特性可以减少大量重复代码。
 
-- vertical-align：垂直文本对齐
-- text-decoration：规定添加到文本的装饰
-- text-shadow：文本阴影效果
-- white-space：空白符的处理
-- unicode-bidi：设置文本的方向
-
-3) **盒子模型的属性**：width、height、margin、border、padding
-4) **背景属性**：background、background-color、background-image、background-repeat、background-position、background-attachment
-5) **定位属性**：float、clear、position、top、right、bottom、left、min-width、min-height、max-width、max-height、overflow、clip、z-index
-6) **生成内容属性**：content、counter-reset、counter-increment
-7) **轮廓样式属性**：outline-style、outline-width、outline-color、outline
-8) **页面样式属性**：size、page-break-before、page-break-after
-9) **声音样式属性**：pause-before、pause-after、pause、cue-before、cue-after、cue、play-during
-
-**二、有继承性的属性**
+### 有继承性的属性
 
 1. **字体系列属性**
 
@@ -375,89 +374,98 @@ https://blog.51cto.com/u_15295346/3022331
 
 - cursor：光标显示为何种形态
 
-###  display 的属性值及其作用
-
-| **属性值**   | **作用**                                                   |
-| ------------ | ---------------------------------------------------------- |
-| none         | 元素不显示，并且会从文档流中移除。                         |
-| block        | 块类型。默认宽度为父元素宽度，可设置宽高，换行显示。       |
-| inline       | 行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示。 |
-| inline-block | 默认宽度为内容宽度，可以设置宽高，同行显示。               |
-| list-item    | 像块类型元素一样显示，并添加样式列表标记。                 |
-| table        | 此元素会作为块级表格来显示。                               |
-| inherit      | 规定应该从父元素继承display属性的值。                      |
-
-### display 的 block、inline和inline-block的区别
-
-（1）**block：** 会独占一行，多个元素会另起一行，可以设置width、height、margin和padding属性；
-
-（2）**inline：** 元素不会独占一行，设置width、height属性无效。但可以设置水平方向的margin和padding属性，不能设置垂直方向的padding和margin；
-
-（3）**inline-block：** 将对象设置为inline对象，但对象的内容作为 对象呈现，之后的内联对象会被排列在同一行内。
-
-对于行内元素和块级元素，其特点如下：
-
-**（1）行内元素**
-
-- 设置宽高无效；
-- 可以设置水平方向的margin和padding属性，不能设置垂直方向的padding和margin；
-- 不会自动换行；
-
-**（2）块级元素**
-
-- 可以设置宽高；
-- 设置margin和padding都有效；
-- 自动换行；
-- 多个块状，默认排列从上到下。
-
-（3）inline-block
-
-- 可以设置宽高；
-- 设置margin和padding都有效；
-- 不会自动换行，后面可以有其他元素。
-
-[案例](https://www.w3school.com.cn/css/css_inline-block.asp)
-
-### 隐藏元素的方法有哪些
-
-- **display: none**：渲染树不会包含该渲染对象，因此该元素不会在页面中占据位置，也不会响应绑定的监听事件。
-- **visibility: hidden**：元素在页面中仍占据空间，但是不会响应绑定的监听事件。
-- **opacity: 0**：将元素的透明度设置为 0，以此来实现元素的隐藏。元素在页面中仍然占据空间，并且能够响应元素绑定的监听事件。
-- **position: absolute**：通过使用绝对定位将元素移除可视区域内，以此来实现元素的隐藏。
-- **z-index: 负值**：来使其他元素遮盖住该元素，以此来实现隐藏。
-- **clip/clip-path** ：使用元素裁剪的方法来实现元素的隐藏，这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
-- **transform: scale(0,0)**：将元素缩放为 0，来实现元素的隐藏。这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
-
-### transition和animation的区别
-
-- **transition是过度属性**，强调过度，它的实现需要触发一个事件（比如鼠标移动上去，焦点，点击等）才执行动画。它类似于flash的补间动画，设置一个开始关键帧，一个结束关键帧。
-- **animation是动画属性**，它的实现不需要触发事件，设定好时间之后可以自己执行，且可以循环一个动画。它也类似于flash的补间动画，但是它可以设置多个关键帧（用@keyframe定义）完成动画。
-
-### 对盒模型的理解
-
-CSS3中的盒模型有以下两种：标准盒子模型、怪异盒子模型（IE盒子模型）。
-
- ![盒子模型](img/box-size.jpg)  
-
-盒模型都是由四个部分组成的，分别是 margin、border、padding 和 content。
-
-标准盒模型和怪异盒模型的区别在于设置 width 和 height 时，所对应的范围不同：
-
-- 标准盒模型的 width 和 height 属性的范围只包含了content，
-- 怪异盒模型的 width 和 height 属性的范围包含了border、padding和content。
-
-可以通过修改元素的 box-sizing 属性来改变元素的盒模型：
+【例外】`a` 标签的字体大小与颜色没有继承性，这是因为浏览器样式(user agent style sheet)表的存在，可以在初始化样式表中加入：
 
 ```css
-box-sizing: border-box;  /*标准盒子模块*/
-box-sizing: content-box; /*怪异*/
+a{
+    font-size: inherit;
+    color: inherit;
+}
 ```
 
-作者：CUGGZ
-链接：https://juejin.cn/post/6905539198107942919
-来源：稀土掘金
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+就能和默认的样式说拜拜了。
+
+【例外】正常文档流中的**块级元素**的宽度具有继承性。有的同学喜欢给元素加 `width: 100%;`，其实很多情况下没必要这么做，有的同学给浮动或定位盒子居中，发现居中不了，这是因为脱流流的盒子不继承父元素宽度，它的宽度由内容撑开。
+
+【练习】问 123 的颜色是？
+
+```html
+<style>
+    .main{
+        color:blue
+    }
+    span{
+        color:green
+    }
+</style>
+<div style="color:red !important" class="main">
+    <span>123</span>
+</div>
+```
+
+### 无继承性的属性
+
+虽然记住具有继承性的属性就行了，没有继承性的属性供参考也需要参考一下，以免抱有侥幸心理。注意：盒子模型的宽度是个特例。
+
+1) **display**：规定元素应该生成的框的类型
+2) **特殊文本属性**：
+
+- vertical-align：垂直文本对齐
+- text-decoration：规定添加到文本的装饰
+- text-shadow：文本阴影效果
+- white-space：空白符的处理
+- unicode-bidi：设置文本的方向
+
+3) **盒子模型属性**：width、height、margin、border、padding、outline、min-width、min-height、max-width、max-height、overflow、clip、
+4) **背景属性**：background、background-color、background-image、background-repeat、background-position、background-attachment
+5) **浮动与定位属性**：float、clear、position、top、right、bottom、left、z-index
+6) **生成内容属性**：content、counter-reset、counter-increment
+7) **页面样式属性**：size、page-break-before、page-break-after
+9) **声音样式属性**：pause-before、pause-after、pause、cue-before、cue-after、cue、play-during
+
+## CSS 变量
+
+不知道屏幕前的你有没有听说过CSS变量，在检查某些网站的源码时偶然间就发现了CSS变量这个好东西：
+
+![image-20221027160235585](image-20221027160235585.png)
+
+利用CSS变量可以方便的调整网页样式，尤其结合 JavaScript 可以更加优雅的调节样式，利用CSS变量可以轻松实现网页换肤功能。
+
+### 认识CSS变量[^4]
+
+**声明**：`--var-name: var-value;`
+
+**读取**：`var(--var-name, [fallback-value])`
+
+**类型**：
+
+- 普通：只能用作属性值不能用作属性名
+- 数值：使用 `calc()`与数值单位连用 `var(--width) * 10px`
+
+**作用域**：在当前元素块作用域及其子元素块作用域下有效。
+
+### JavaScript API
+
+JavaScript 中主要有3个操作**CSS变量**的 API，看上去简单易记，分别如下：
+
+- 读取变量：`elem.style.getPropertyValue()`
+- 设置变量：`elem.style.setProperty()`
+- 删除变量：`elem.style.removeProperty()`
 
 ## 参考文章
 
 [^1]: MDN. [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). 
+
+[^2]: MDN. [Specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity).
+
+[^3]: MDN. [Attribute selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors).
+
+[^4]:JowayYoung. [妙用CSS变量，让你的CSS变得更心动](https://juejin.cn/post/6844904084936327182). 稀土掘金.
+
+
+
+> ♥ 我是前端工程师：你的甜心森。非常感谢大家的点赞与关注，欢迎大家参与讨论或协作，QQ交流群：233589794。
+>
+> ★ 本文[开源](https://github.com/xiayulu/FrontEndCultivation)，采用 [CC BY-SA 4.0 协议](http://creativecommons.org/licenses/by-sa/4.0/)，转载请注明出处：[前端工程师的自我修养](https://github.com/xiayulu/FrontEndCultivation). GitHub.com@xiayulu.
+>
+> ★ 创作合作或招聘信息请发私信或邮件：zuiaiqiansen@163.com，注明主题：创作合作或**招聘前端工程师**。

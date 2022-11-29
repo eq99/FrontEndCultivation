@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // function getType(obj) {
+      //   return Object.prototype.toString.call(obj);
+      // }
+      // function Fn() {}
+
+      // Fn.prototype = new Array();
+
+      // var f = new Fn();
+
+      // console.log(f.constructor === Fn); // false
+      // console.log(f.constructor === Array); // true
+      // console.log(Array.isArray(f)); // false
+    </script>
+
+    <script>
+      // 判断数组方式
+      const a = [];
+      const b = {};
+      console.log(a instanceof Array, b instanceof Array); // true false
+      console.log(Array.prototype.isPrototypeOf(a), Array.prototype.isPrototypeOf(b)); // true false
+      console.log(a.__proto__ === Array.prototype, b.__proto__ === Array.prototype); // true false
+
+      function getType(obj) {
+        return Object.prototype.toString.call(obj);
+      }
+      console.log(getType(a), getType(b));
+
+      console.log(Array.isArray(a), Array.isArray(b));
+    </script>
+  </body>
+</html>

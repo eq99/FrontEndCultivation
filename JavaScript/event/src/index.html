@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background-color: #2ca9e1;
+        position: fixed;
+        bottom: 100px;
+        right: 100px;
+      }
+    </style>
+
+    <div class="box" id="fab"></div>
+
+    <script>
+      const fabEle = document.querySelector("#fab");
+      fabEle.addEventListener("mousedown", function (e) {
+        const fx = e.offsetX;
+        const fy = e.offsetY;
+
+        function handleMousemove(e) {
+          fabEle.style.cursor = "move";
+          fabEle.style.left = e.clientX - fx + "px";
+          fabEle.style.top = e.clientY - fy + "px";
+        }
+
+        function handleMouseup(e) {
+          fabEle.removeEventListener("mousemove", handleMousemove);
+          fabEle.removeEventListener("mouseup", handleMouseup);
+        }
+
+        fabEle.addEventListener("mousemove", handleMousemove);
+        fabEle.addEventListener("mouseup", handleMouseup);
+      });
+    </script>
+  </body>
+</html>

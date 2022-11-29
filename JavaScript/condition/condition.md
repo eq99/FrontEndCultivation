@@ -1,4 +1,4 @@
-# JavaScript 条件比较与类型转换详解
+# JavaScript 条件运算与类型转换解疑
 
 JavaScript 中用于条件判断（分支流）的方法主要有如下几种：
 
@@ -354,7 +354,7 @@ console.log ( arr3 == arr1 );//true  两者地址是一样
 console.log ( [] == [] );//false
 console.log ( {} == {} );//false
 ```
-![week-equal](img/week-equal.png)
+![week-equal](week-equal.png)
 
 【例题】判断如下结果：
 

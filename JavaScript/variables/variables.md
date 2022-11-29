@@ -1,4 +1,4 @@
-# JavaScript 变量声明 var, let, const
+# JavaScript 变量声明的三种方式
 
 JavaScript 中，可以声明变量的关键字有 `var`、`let`和`const`。
 

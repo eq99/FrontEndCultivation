@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class Vehicle {
+        constructor(name) {
+          this.name = name;
+        }
+
+        move() {
+          console.log(`${this.name} is moving...`);
+        }
+      }
+
+      class Car extends Vehicle {
+        constructor() {
+          super();
+          this.name = "Audi";
+          this.oil = 120;
+        }
+
+        run() {
+          this.oil--;
+          console.log(`我的${this.name}在飞驰, 当前油量：${this.oil}`);
+        }
+      }
+
+      let car = new Car();
+      car.run(); //我的Audi在飞驰, 当前油量：119
+      car.move(); //Audi is moving...
+    </script>
+  </body>
+</html>

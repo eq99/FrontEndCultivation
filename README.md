@@ -17,12 +17,23 @@
 
 ## JavaScript
 
-- [JavaScript数据类型详解](JavaScript/datatypes.md)
-- [真假难辨之类型转换](JavaScript/02type-cast.md)
-- [JavaScript 如何做比较](JavaScript/03js-cmp.md)
-- [JavaScript 变量声明总结](JavaScript/04variables.md)
+### 语言基础
+- [JavaScript 一文弄懂基础数据类型](JavaScript/datatypes/datatypes.md)
+- [JavaScript 变量声明的三种方式](JavaScript/variables/variables.md)
+- [JavaScript 对象：从见面到脱单](JavaScript/object/object.md)
+- [JavaScript 条件运算与类型转换解疑](JavaScript/condition/condition.md)
+- [JavaScript 函数：从学会到搬砖](JavaScript/function/function.md)
+- [JavaScript 数组快速入门](JavaScript/array/array.md)
+- [JavaScript 调皮的 this 指针](JavaScript/this/this.md)
+- [JavaScript 回调函数：我一直在守护你](JavaScript/callback/callback.md)
+- [JavaScript 正则表达式](JavaScript/regex/regex.md)
+
+### 面向浏览器编程
+
+- [JavaScript 熟悉又陌生的 BOM 对象](JavaScrip/BOM/BOM.md)
+- [JavaScript 无处不在的 DOM 对象](JavaScrip/DOM/DOM.md)
+- [JavaScript 事件：你办事我放心](JavaScrip/event/event.md)
 - [异步与Promise](JavaScript/05promis.md)
-- [好基友: 浅拷贝与深拷贝](JavaScript/copy.md)
 
 ## 参考资料汇总
 

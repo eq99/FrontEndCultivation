@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- https://zhuanlan.zhihu.com/p/80344023
+    https://blog.csdn.net/u012587568/article/details/113770887
+    -->
+    <style>
+      :root {
+        --tetris-size: 16px;
+        --tetris-gap: 1px;
+        --tetris-color: #824880;
+      }
+
+      .board {
+        margin-left: 200px;
+        display: inline-block;
+        border: 8px solid gold;
+
+        position: relative;
+      }
+
+      .ceil {
+        width: var(--tetris-size);
+        height: var(--tetris-size);
+        margin: var(--tetris-gap);
+      }
+
+      .grey {
+        background-color: #c8c2c6;
+      }
+
+      .block {
+        display: inline-block;
+      }
+
+      .white {
+        background-color: #fff;
+      }
+
+      .mino-box {
+        top: 0;
+        left: 0;
+        position: absolute;
+      }
+
+      .mino-row {
+        display: flex;
+      }
+
+      .mino-ceil {
+        width: var(--tetris-size);
+        height: var(--tetris-size);
+        margin: var(--tetris-gap);
+        background-color: transparent;
+      }
+
+      .mino-block {
+        background-color: var(--tetris-color);
+      }
+
+      .board-row {
+        display: flex;
+      }
+
+      .container {
+        display: flex;
+        padding-top: 16px;
+      }
+
+      .tips {
+        margin-left: 32px;
+      }
+      .score-box {
+        margin: 12px 0;
+      }
+      .score {
+        font-size: 32px;
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="board">
+        <div class="mino-box"></div>
+      </div>
+      <div class="tips">
+        <h3>Tetris 俄罗斯方块</h3>
+        <div class="score-box">得分: <span class="score">0</span></div>
+        <div class="keyboard">按键说明:</div>
+        <div><code>W</code>：变形 🠕</div>
+        <div><code>A</code>：左移 🠔</div>
+        <div><code>S</code>：下移 🠗</div>
+        <div><code>D</code>：右移 🠖</div>
+        <div><code>P</code>：暂停</div>
+        <div><code>O</code>：继续</div>
+        <div><code>N</code>：新游戏 👈</div>
+      </div>
+    </div>
+
+    <script>
+      /*----------配置方块及其变换形态----------*/
+      // L型方块
+      const blockL = [
+        [
+          [0, 0, 1],
+          [1, 1, 1],
+        ],
+        [
+          [1, 0],
+          [1, 0],
+          [1, 1],
+        ],
+        [
+          [1, 1, 1],
+          [1, 0, 0],
+        ],
+        [
+          [1, 1],
+          [0, 1],
+          [0, 1],
+        ],
+      ];
+
+      // J型方块
+      const blockJ = [
+        [
+          [1, 0, 0],
+          [1, 1, 1],
+        ],
+        [
+          [1, 1],
+          [1, 0],
+          [1, 0],
+        ],
+        [
+          [1, 1, 1],
+          [0, 0, 1],
+        ],
+        [
+          [0, 1],
+          [0, 1],
+          [1, 1],
+        ],
+      ];
+
+      // I型方块
+      const blockI = [
+        [[1, 1, 1, 1]],
+        [
+          [0, 1],
+          [0, 1],
+          [0, 1],
+          [0, 1],
+        ],
+      ];
+
+      // O型方块
+      const blockO = [
+        [
+          [1, 1],
+          [1, 1],
+        ],
+      ];
+
+      // Z型方块
+      const blockZ = [
+        [
+          [1, 1, 0],
+          [0, 1, 1],
+        ],
+        [
+          [0, 1],
+          [1, 1],
+          [1, 0],
+        ],
+        [
+          [1, 1, 0],
+          [0, 1, 1],
+        ],
+        [
+          [0, 1],
+          [1, 1],
+          [1, 0],
+        ],
+      ];
+
+      // S型方块
+      const blockS = [
+        [
+          [0, 1, 1],
+          [1, 1, 0],
+        ],
+        [
+          [1, 0],
+          [1, 1],
+          [0, 1],
+        ],
+        [
+          [0, 1, 1],
+          [1, 1, 0],
+        ],
+        [
+          [1, 0],
+          [1, 1],
+          [0, 1],
+        ],
+      ];
+
+      // T型方块
+      const blockT = [
+        [
+          [1, 1, 1],
+          [0, 1, 0],
+        ],
+        [
+          [0, 1],
+          [1, 1],
+          [0, 1],
+        ],
+        [
+          [0, 1, 0],
+          [1, 1, 1],
+        ],
+        [
+          [1, 0],
+          [1, 1],
+          [1, 0],
+        ],
+      ];
+
+      const blockAll = [blockI, blockO, blockT, blockL, blockJ, blockS, blockZ];
+    </script>
+    <script>
+      class Mino {
+        constructor(minoBlocks, options = {}) {
+          this.board = document.querySelector(".board");
+          this.blocks = minoBlocks; // 数组形式的方块
+          [this.groupDom, this.group] = this.getRandomGroup();
+          this.index = 0;
+          this.rows = options.rows || 30;
+          this.cols = options.cols || 12;
+          this.size = options.size || 16;
+          this.gap = options.gap || 1;
+          this.stepSize = this.size + this.gap * 2;
+          this.top = 0;
+          this.left = this.getInitialLeft();
+        }
+
+        createBlock(mino = [[1, 1, 1, 1]]) {
+          const div = document.createElement("div");
+          div.setAttribute("class", "mino-box");
+          for (let i = 0; i < mino.length; i++) {
+            const row = document.createElement("div");
+            row.setAttribute("class", "mino-row");
+            for (let j = 0; j < mino[i].length; j++) {
+              const ceil = document.createElement("div");
+              const mclass = mino[i][j] < 1 ? "mino-ceil" : "mino-ceil mino-block";
+              ceil.setAttribute("class", mclass);
+              row.appendChild(ceil);
+            }
+            div.appendChild(row);
+          }
+          return div;
+        }
+
+        getRandomColor() {
+          const colors = ["#932a97", "#ffea00", "#d11f24", "#ff7300", "#009bd9", "#0254b5", "#63ba25"];
+          return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        setTetrisColor() {
+          document.documentElement.style.setProperty("--tetris-color", this.getRandomColor());
+        }
+
+        getRandomGroup() {
+          const groups = this.blocks[Math.floor(Math.random() * this.blocks.length)];
+          const doms = groups.map((mino) => {
+            return this.createBlock(mino);
+          });
+          this.setTetrisColor();
+          return [doms, groups];
+        }
+
+        getHeight() {
+          return this.group[this.index].length;
+        }
+
+        getWidth() {
+          return this.group[this.index][0].length;
+        }
+
+        loadNewBlock() {
+          const minoEle = document.querySelector(".mino-box");
+          if (minoEle) {
+            this.board.removeChild(minoEle);
+          }
+          [this.groupDom, this.group] = this.getRandomGroup();
+          this.index = 0;
+          this.top = 0;
+          this.left = this.getInitialLeft();
+          this.setGropLeft();
+          this.board.appendChild(this.groupDom[this.index]);
+        }
+
+        changeRight() {
+          this.board.removeChild(this.groupDom[this.index]);
+          this.index = (this.index + 1) % this.groupDom.length;
+          this.board.appendChild(this.groupDom[this.index]);
+        }
+
+        getInitialLeft() {
+          return Math.floor(this.cols / 2 - this.getWidth());
+        }
+
+        setGroupTop() {
+          this.groupDom.forEach((ele) => {
+            ele.style.top = this.top * this.stepSize + "px";
+          });
+        }
+
+        setTop(top) {
+          this.top = top;
+        }
+
+        setGropLeft() {
+          this.groupDom.forEach((ele) => {
+            ele.style.left = this.left * this.stepSize + "px";
+          });
+        }
+
+        moveRight() {
+          this.left += 1;
+          this.setGropLeft();
+        }
+
+        moveLeft() {
+          this.left -= 1;
+          this.setGropLeft();
+        }
+
+        moveDown() {
+          this.top += 1;
+          this.setGroupTop();
+        }
+
+        getPos() {
+          return [this.left, this.top];
+        }
+
+        getMatrix() {
+          return this.group[this.index];
+        }
+      }
+
+      class Tetris {
+        constructor(options = {}) {
+          this.board = document.querySelector(".board");
+          this.score = document.querySelector(".score");
+          this.rows = options.rows || 30;
+          this.cols = options.cols || 12;
+          this.size = options.size || 16;
+          this.gap = options.gap || 1;
+          this.stepSize = this.size + this.gap * 2;
+          this.ceils = [];
+          this.mino = new Mino(blockAll, options);
+
+          this.top = this.rows;
+          this.left = 0;
+          this.right = this.cols;
+
+          this.timer = null;
+          this.autoPlay = null;
+        }
+
+        initCeils() {
+          for (let i = 0; i < this.rows; i++) {
+            const cols = [];
+            for (let j = 0; j < this.cols; j++) {
+              const ceil = document.createElement("div");
+              ceil.setAttribute("class", "ceil grey");
+              cols.push(ceil);
+            }
+            this.ceils.push(cols);
+          }
+
+          document.documentElement.style.setProperty("--tetris-size", this.size + "px");
+          document.documentElement.style.setProperty("--tetris-gap", this.gap + "px");
+        }
+
+        getTetrisColor() {
+          return getComputedStyle(document.documentElement).getPropertyValue("--tetris-color");
+        }
+
+        getCeilColor(ceil) {
+          return getComputedStyle(ceil).backgroundColor;
+        }
+
+        drawBoad() {
+          const frag = document.createDocumentFragment();
+          for (let i = 0; i < this.rows; i++) {
+            const row = document.createElement("div");
+            row.setAttribute("class", "board-row");
+            for (let j = 0; j < this.cols; j++) {
+              row.appendChild(this.ceils[i][j]);
+            }
+            frag.appendChild(row);
+          }
+
+          this.board.appendChild(frag);
+        }
+
+        checkLeft() {
+          const [left, top] = this.mino.getPos();
+          const matrix = this.mino.getMatrix();
+          const height = matrix.length;
+
+          for (let i = 0; i < height; i++) {
+            let blockLeft = matrix[i].findIndex((ele) => ele === 1) + left;
+
+            let boardRight = -1;
+            for (let j = left; j >= 0; j--) {
+              if (this.ceils[i + top][j].classList.contains("block")) {
+                boardRight = j;
+                break;
+              }
+            }
+            if (boardRight + 1 >= blockLeft) {
+              return false;
+            }
+          }
+          return true;
+        }
+
+        checkRight() {
+          const [left, top] = this.mino.getPos();
+          const matrix = this.mino.getMatrix();
+          const height = matrix.length;
+          const width = matrix[0].length;
+
+          for (let i = 0; i < height; i++) {
+            let blockRight = matrix[i].findLastIndex((ele) => ele === 1) + left;
+
+            let boardLeft = this.cols;
+            for (let j = left + width; j < this.cols; j++) {
+              if (this.ceils[i + top][j].classList.contains("block")) {
+                boardLeft = j;
+                break;
+              }
+            }
+            // console.log("row:", i, blockRight, boardLeft);
+            if (blockRight + 1 >= boardLeft) {
+              return false;
+            }
+          }
+          return true;
+        }
+
+        checkBottom() {
+          const [left, top] = this.mino.getPos();
+          const matrix = this.mino.getMatrix();
+          const width = matrix[0].length;
+          const height = matrix.length;
+
+          for (let j = 0; j < width; j++) {
+            let blockTop = 0;
+            for (let i = height - 1; i >= 0; i--) {
+              if (matrix[i][j] === 1) {
+                blockTop = i;
+                break;
+              }
+            }
+            blockTop += top;
+
+            let boardTop = this.rows;
+            for (let i = this.rows - 1; i >= top; i--) {
+              if (j + left >= 0 && this.ceils[i][j + left].classList.contains("block")) {
+                boardTop = i;
+              }
+            }
+            // console.log("cols:", left + j, boardTop, blockTop);
+            if (blockTop + 1 >= boardTop) {
+              return false;
+            }
+          }
+
+          return true;
+        }
+
+        addScore(score) {
+          this.score.innerHTML = parseInt(this.score.textContent) + score;
+        }
+
+        handleBottom() {
+          clearInterval(this.timer);
+          this.timer = null;
+          const [left, top] = this.mino.getPos();
+          const matrix = this.mino.getMatrix();
+
+          for (let i = 0; i < matrix.length; i++) {
+            for (let j = 0; j < matrix[i].length; j++) {
+              if (matrix[i][j] > 0) {
+                this.ceils[top + i][left + j].classList.replace("grey", "block");
+                this.ceils[top + i][left + j].style.backgroundColor = this.getTetrisColor();
+              }
+            }
+          }
+
+          this.clearBottom();
+
+          this.mino.loadNewBlock();
+          this.run();
+          if (this.checkGameOver()) {
+            this.handleGameOver();
+            return;
+          }
+        }
+
+        clearBottom() {
+          const [left, top] = this.mino.getPos();
+          const height = this.mino.getHeight();
+          const rows = [];
+          for (let i = 0; i < height; i++) {
+            let flag = true;
+            for (let j = 0; j < this.cols; j++) {
+              flag &= this.ceils[i + top][j].classList.contains("block");
+            }
+            if (flag) rows.push(i + top);
+          }
+
+          rows.forEach((row) => {
+            this.ceils[row].forEach((ceil) => {
+              ceil.classList.remove("block");
+              ceil.style.backgroundColor = "#fff";
+            });
+          });
+
+          const n = rows.length;
+          if (n > 0) {
+            const timer = setTimeout(() => {
+              clearTimeout(timer);
+
+              for (let row = rows[n - 1]; row >= 0; row--) {
+                for (let j = 0; j < this.cols; j++) {
+                  this.ceils[row][j].className = row - n >= 0 ? this.ceils[row - n][j].className : "ceil grey";
+                  this.ceils[row][j].style.backgroundColor = row - n >= 0 ? this.getCeilColor(this.ceils[row - n][j]) : "";
+                }
+              }
+            }, 200);
+          }
+
+          const scores = [10, 100, 200, 400, 1000];
+          this.addScore(scores[n]);
+        }
+
+        confirmBlock() {
+          const [left, top] = this.mino.getPos();
+          const matrix = this.mino.getMatrix();
+          const width = matrix[0].length;
+          const height = matrix.length;
+
+          let delta = this.rows;
+          for (let j = 0; j < width; j++) {
+            let blockTop = 0;
+            for (let i = height - 1; i >= 0; i--) {
+              if (matrix[i][j] === 1) {
+                blockTop = i;
+                break;
+              }
+            }
+            blockTop += top;
+
+            let boardTop = this.rows;
+            for (let i = this.rows - 1; i >= top; i--) {
+              if (j + left >= 0 && this.ceils[i][j + left].classList.contains("block")) {
+                boardTop = i;
+              }
+            }
+
+            delta = Math.min(boardTop - blockTop);
+          }
+
+          this.mino.setTop(top + delta - 2);
+        }
+
+        checkGameOver() {
+          const height = this.mino.getHeight();
+          for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < this.cols; j++) {
+              if (this.ceils[i][j].classList.contains("block") && i < height) {
+                return true;
+              }
+            }
+          }
+          return false;
+        }
+
+        setGameOverRow(row) {
+          for (let j = 0; j < this.cols; j++) {
+            this.ceils[row][j].className = "ceil";
+            this.ceils[row][j].style.backgroundColor = "#000";
+          }
+        }
+
+        clearGameOverRow(row) {
+          for (let j = 0; j < this.cols; j++) {
+            this.ceils[row][j].style.backgroundColor = "";
+            this.ceils[row][j].className = "ceil grey";
+          }
+        }
+
+        handleGameOver() {
+          clearInterval(this.timer);
+          this.timer = null;
+
+          let i = this.rows - 1;
+
+          let timer = setInterval(() => {
+            if (i >= 0) {
+              this.setGameOverRow(i);
+              i--;
+            } else {
+              clearInterval(timer);
+              this.board.removeChild(document.querySelector(".mino-box"));
+              i = 0;
+              timer = setInterval(() => {
+                if (i < this.rows) {
+                  this.clearGameOverRow(i);
+                  i++;
+                } else {
+                  clearInterval(timer);
+                }
+              }, 100);
+            }
+          }, 100);
+
+          this.autoPlay = setTimeout(() => {
+            this.start();
+          }, 10000);
+        }
+
+        run() {
+          if (this.timer) return;
+          this.timer = setInterval(() => {
+            if (this.checkBottom()) {
+              this.mino.moveDown();
+            } else {
+              this.handleBottom();
+            }
+          }, 500);
+        }
+
+        stop() {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+
+        start() {
+          if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+          }
+          if (this.autoPlay) {
+            clearTimeout(this.autoPlay);
+            this.autoPlay = null;
+          }
+          this.board.innerHTML = "";
+          this.score.innerHTML = "0";
+          this.initCeils();
+          this.drawBoad();
+          this.mino.loadNewBlock();
+          this.run();
+        }
+      }
+
+      const tetris = new Tetris({ rows: 20, cols: 10, size: 24 });
+      tetris.start();
+
+      window.onkeydown = function (e) {
+        // console.log(e);
+        if (e.key === "w" || e.key === "ArrowUp") {
+          tetris.mino.changeRight();
+        }
+
+        if (e.key === "s" || e.key === "ArrowDown") {
+          tetris.confirmBlock();
+        }
+
+        if (e.key === "d" || e.key === "ArrowRight") {
+          if (tetris.checkRight()) tetris.mino.moveRight();
+        }
+
+        if (e.key === "a" || e.key === "ArrowLeft") {
+          if (tetris.checkLeft()) tetris.mino.moveLeft();
+        }
+
+        if (e.key === "p") {
+          tetris.stop();
+        }
+
+        if (e.key === "o") {
+          tetris.run();
+        }
+
+        if (e.key === "n") {
+          tetris.start();
+        }
+      };
+    </script>
+  </body>
+</html>

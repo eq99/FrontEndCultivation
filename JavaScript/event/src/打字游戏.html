@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        font-family: Consolas;
+      }
+
+      .box {
+        width: 64px;
+        height: 64px;
+        background-color: #2ca9e1;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+
+        position: fixed;
+        left: 10vw;
+      }
+
+      .good .num {
+        font-size: 32px;
+        color: #00a381;
+      }
+
+      .bad .num {
+        font-size: 32px;
+        color: #bf242a;
+      }
+    </style>
+
+    <div class="good">成功：<span class="num">0</span></div>
+    <div class="bad">失败：<span class="num">0</span></div>
+
+    <script>
+      const goodEle = document.querySelector(".good .num");
+      const badEle = document.querySelector(".bad .num");
+      const chars = "abcdefghijklmnopqrstuvwxyz123456789";
+      const colors = ["#ba2636", "#752100", "#69821b", "#165e83", "#192f60", "#4d5aaf", "#316745", "#b44c97", "#7a4171"];
+      const maxHeight = document.documentElement.offsetHeight - 64;
+      const maxWidth = document.documentElement.offsetWidth - 64;
+
+      function setRandomChar(ele) {
+        ele.innerHTML = chars[Math.floor(Math.random() * chars.length)];
+      }
+
+      function setRandomColor(ele) {
+        ele.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      function setRandomPos(ele) {
+        ele.style.left = Math.floor(Math.random() * maxWidth) + "px";
+      }
+
+      function setGood() {
+        goodEle.innerHTML = parseInt(goodEle.innerHTML) + 1;
+      }
+
+      function setBad() {
+        badEle.innerHTML = parseInt(badEle.innerHTML) + 1;
+      }
+
+      function startChar() {
+        const ele = document.createElement("div");
+        ele.setAttribute("class", "box");
+        let charTop = 0;
+        const speed = Math.floor(Math.random() * 20 + 1);
+        setRandomChar(ele);
+        setRandomColor(ele);
+        setRandomPos(ele);
+
+        document.body.appendChild(ele);
+
+        const timer = setInterval(() => {
+          ele.style.top = charTop + "px";
+          charTop++;
+          if (charTop >= maxHeight) {
+            document.body.removeChild(ele);
+            clearInterval(timer);
+            setBad();
+          }
+        }, speed);
+      }
+
+      function createRandom() {
+        // 控制球生成数量
+        let factor = parseInt(goodEle.textContent) / 50;
+        if (factor < 2) {
+          factor = 10;
+        }
+        if (factor > 10) {
+          factor = 20;
+        }
+
+        for (let i = 0; i < Math.random() * factor; i++) {
+          startChar();
+        }
+      }
+
+      function check(char) {
+        const eles = document.querySelectorAll(".box");
+
+        //检查球对应的字符
+        for (let i = 0; i < eles.length; i++) {
+          if (eles[i].textContent === char) {
+            setGood();
+            document.body.removeChild(eles[i]);
+            return;
+          }
+        }
+
+        setBad();
+      }
+
+      function startGame() {
+        let timer = setInterval(() => {
+          createRandom();
+        }, 2000);
+      }
+
+      window.addEventListener("keypress", function (e) {
+        check(e.key);
+      });
+
+      startGame();
+    </script>
+  </body>
+</html>
